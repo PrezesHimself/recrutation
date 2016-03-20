@@ -25,6 +25,24 @@ let chatModule = angular.module('chat', [
                 controllerAs: 'vm'
             });
         })
+        .directive('classOnEvent', function() {
+          return {
+            restrict: 'A',
+            link: function (scope, element) {
+              console.log(scope);
+              scope.$on(scope.event, (ev, data) => {
+                 element.addClass( scope.class );
+                });
+              element.bind('click', function() {
+                element.removeClass( scope.class );
+              });
+            },
+            scope: {
+                event: '@event',
+                class: '@cl',
+            }
+          };
+        });
 
 
 
@@ -51,9 +69,10 @@ let chatModule = angular.module('chat', [
         }
 
         $scope.$on('socket:news', (ev, data) => {
-          // if(data.data) {        
+        console.log(data);
+          if(data.data) {        
               this.phones.push(data.data);
-          // }
+          }
         });
     }
 

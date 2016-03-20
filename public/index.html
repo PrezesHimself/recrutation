@@ -4,12 +4,18 @@
     <base href="/">
 </head>
 <nav>
-    <a ui-sref='app.chat'>chat</a>
+    <a ui-sref='app.chat' class-on-event event='socket:news' cl="blink">chat</a>
     <a ui-sref='app.photos'>photos</a>
     <a ui-sref='app.settings'>settings</a>
 </nav>
 <body ng-app="app">
 <div ui-view=""></div>
+
+<style>
+	.blink {
+		color: red;
+	}
+</style>
 <script src="app.js"></script>
 </body>
 </html>
