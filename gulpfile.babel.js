@@ -68,14 +68,18 @@ gulp.task('browserify', function () {
 function bundle_js(bundler) {
     return bundler.bundle()
         .on('error', map_error)
+        .on('end', function() {
+            gutil.log(chalk.green('done!'));
+            browserSync.reload();
+        })
         .pipe(source('app.js'))
         .pipe(buffer())
         .pipe(gulp.dest('public'))
         .pipe(rename('app.min.js'))
-        .pipe(sourcemaps.init({ loadMaps: true }))
+        //.pipe(sourcemaps.init({ loadMaps: true }))
         // capture sourcemaps from transforms
-        .pipe(uglify())
-        .pipe(sourcemaps.write('.'))
+        //.pipe(uglify())
+        //.pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('public'))
 }
 

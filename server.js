@@ -4,15 +4,14 @@ var io = require('socket.io')(server);
 
 server.listen(1337);
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
-
 io.on('connection', function (socket) {
-	console.log('connection')
-  socket.emit('news', { hello: 'world' });
-  socket.on('news', function (data) {
-  	console.log('news', data);
-    socket.broadcast.emit('news', data);
-  });
+    console.log('connection')
+    socket.emit('message', {
+        message: "hello new user",
+        user: "server"
+    });
+    socket.on('message', function (data) {
+        console.log('message', data);
+        io.emit('message', data);
+    });
 });
