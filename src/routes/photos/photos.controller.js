@@ -2,9 +2,10 @@
 
 class PhotosController {
 
-    constructor($scope) {
+    constructor($scope, $rootScope) {
         console.log('asdf');
-
+        $rootScope.photoWidth = 200;
+        $rootScope.photoHeight = 200;
     }
 
     nextSlide($event) {
@@ -17,4 +18,3 @@ class PhotosController {
 }
 
 export default PhotosController;
-

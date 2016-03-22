@@ -2,32 +2,36 @@
 
 class ChatService {
 
-    constructor(mySocket, $rootScope) {
+    constructor(mySocket, $rootScope, $location) {
+      console.log($rootScope);
         this.mySocket = mySocket;
         this.$rootScope = $rootScope;
 
-        this.messages = [
-            {
-                message: "asd",
-                user: "asdasd"
-            }];
+        this.messages = [];
 
 
         window.test = this;
 
+        this.$rootScope.$on('socket:greeting', (ev, data) =>{
+
+          this.$rootScope.socketID = data.socketID;
+          this.$rootScope.userName = data.newUserName;
+
+        });
         this.$rootScope.$on('socket:message', (ev, data) =>{
-            console.log(data);
             this.appendMessage(
-                data.message,
-                data.user
-            )
+                data
+            );
+            $location.hash('focus');
+
         });
     }
 
-    appendMessage(message, user) {
+    appendMessage(data) {
         this.messages.push({
-            message: message,
-            user: user
+            message: data.message,
+            user: data.user,
+            socketID: data.socketID
         });
     }
 

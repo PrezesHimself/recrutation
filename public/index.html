@@ -3,41 +3,16 @@
 
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/main.css" media="screen" title="no title" charset="utf-8">
 </head>
-<nav>
-    <a ui-sref='app.chat' class-on-event event='socket:message' cl="blink">chat</a>
-    <a ui-sref='app.photos'>photos</a>
-    <a ui-sref='app.settings'>settings</a>
+<nav class="mr-mainnav">
+    <a class="mr-mainnav__item" ui-sref='app.chat' class-on-event event='socket:message' cl="blink">chat</a>
+    <a class="mr-mainnav__item" ui-sref='app.photos'>photos</a>
+    <a class="mr-mainnav__item" ui-sref='app.settings'>settings</a>
 </nav>
 <body ng-app="app">
 <div ui-view=""></div>
 
-<style>
-
-body, html {
-  width: 100%;
-  overflow-x: hidden;
-}
-	.blink {
-		color: red;
-	}
-    .slide {
-        overflow: hidden;
-        height:300px;
-        width: 100%;
-        position: relative;
-    }
-
-    .slide img {
-        width: 33.33333%;
-        height:auto;
-    }
-
-    .slide .container {
-        width: 300%;
-        position: absolute;
-    }
-</style>
 <script src="app.js"></script>
 </body>
 </html>

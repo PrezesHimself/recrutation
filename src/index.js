@@ -2,13 +2,15 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngTouch from 'angular-touch';
 import Routes from './routes/routes';
-
+import ngAnimate from 'angular-animate';
+console.log(ngAnimate);
 import io from 'socket.io-client/socket.io';
 
 angular.module('app', [
     uiRouter,
     Routes.name,
-    ngTouch
+    ngTouch,
+    ngAnimate
 ])
 .config(($urlRouterProvider, $stateProvider, $locationProvider) => {
 
@@ -26,14 +28,14 @@ angular.module('app', [
 })
 
 .factory('mySocket', function (socketFactory) {
-    console.log('create mySocket');
 
-    var myIoSocket = io('http://localhost:1337');
+    var myIoSocket = io('http://192.168.1.19:1337');
 
     var mySocket = socketFactory({
         ioSocket: myIoSocket
     });
 
     mySocket.forward('message');
+    mySocket.forward('greeting');
     return mySocket;
 })

@@ -3,9 +3,6 @@ import uiRouter from 'angular-ui-router';
 
 import template from './photos.template';
 import controller from './photos.controller';
-import directive from './photos.directive';
-
-console.log(directive, '<<<<');
 
 let photosModule = angular.module('photos', [
             uiRouter
@@ -25,6 +22,7 @@ let photosModule = angular.module('photos', [
         .directive('photos', ['$interval', function($interval) {
 
             function link(scope, element, attrs) {
+                element.addClass("mr-slider");
 
                 var container = angular.element(element.find('div')[1]);
                 var slides = element.find('img').length;
@@ -34,23 +32,35 @@ let photosModule = angular.module('photos', [
                 console.log(container);
 
                 scope.nextSlide = function () {
-                    currentSlide = currentSlide == slides ? slides : currentSlide+1;
-                    console.log('next');
-                    container.css('left', currentSlide * part  + '%');
+
+
+                      if(currentSlide === slides - 1) {
+                        addPhoto();
+                      }
+                    currentSlide = Math.min(currentSlide+1, (slides-1));
+                    console.log(currentSlide);
+                    container.css('left', -currentSlide * part  + '%');
                 }
                 scope.prevSlide = function () {
-                    currentSlide = currentSlide == 0 ? 0 : currentSlide-1;
-                    container.css('left', currentSlide * part + '%');
+                    currentSlide = Math.max(currentSlide-1, 0);
+                    console.log(currentSlide);
+                    container.css('left', -currentSlide * part + '%');
+                }
+
+                addPhoto();
+
+                function addPhoto() {
+                  slides++;
+                    container.css('width', slides * 100  + '%');
+                  console.log('add photo');
+                  container.append('<div class="mr-slider__imgwrapper" style="background-image:url(http://lorempixel.com/400/200/?cache='+Math.round((Math.random()*200))+')"></div>');
                 }
             }
 
             return {
                 link: link,
-                template: '<div class="slide" ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()">' +
-                    '<div class="container"> ' +
-                        '<img src="http://i.imgur.com/IOebJDZ.gif" alt="">' +
-                        '<img src="http://i.imgur.com/IOebJDZ.gif" alt="">' +
-                        '<img src="http://i.imgur.com/IOebJDZ.gif" alt="">' +
+                template: '<div class="mr-slider__wrapper" ng-swipe-left="nextSlide()" ng-swipe-right="prevSlide()">' +
+                    '<div class="mr-slider__container"> ' +
                      '</div>' +
                 '</div>'
             };

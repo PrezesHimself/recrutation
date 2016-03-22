@@ -2,15 +2,18 @@
 
     class ChatController {
 
-        constructor($scope, ChatService) {
+        constructor($scope, $rootScope, ChatService) {
             this.ChatService = ChatService;
+            this.$scope = $scope;
             this.messages = ChatService.messages;
             this.input = "";
-            $scope.onTouchend = function($event) {
-                console.log('touchend event called');
-            }
+            this.$rootScope = $rootScope;
         }
 
+
+        isMyMessage(msg) {
+          return this.$rootScope.socketID == msg.socketID;
+        }
         send() {
             this.sendMessage(this.input, 'user');
             this.input = "";
@@ -34,4 +37,3 @@
     }
 
 export default ChatController;
-

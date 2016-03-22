@@ -7,6 +7,8 @@ import browserify  from 'browserify';
 import watchify   from 'watchify';
 import babelify   from 'babelify';
 import source from 'vinyl-source-stream';
+import sass from 'gulp-sass';
+import autoprefixer from 'gulp-autoprefixer';
 
 var buffer = require('vinyl-buffer')
 var merge = require('utils-merge')
@@ -28,7 +30,7 @@ gulp.task('default', () => {
     console.log('test');
 });
 
-gulp.task('serve', ['browser-sync', 'watchify'], () => {
+gulp.task('serve', ['browser-sync', 'watchify', 'sass:watch'], () => {
 });
 
 gulp.task('browser-sync', function() {
@@ -46,6 +48,26 @@ gulp.task('js', () =>
         }))
         .pipe(gulp.dest('dist'))
 );
+
+gulp.task('sass', function () {
+  return gulp.src('./src/main.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sass().on('end',
+        function() {
+          gutil.log(chalk.green('css done!'));
+          server.reload();
+        }
+      ))
+    .pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
+		}))
+    .pipe(gulp.dest('./public/'));
+});
+
+gulp.task('sass:watch', function () {
+  gulp.watch('./src/main.scss', ['sass']);
+});
 
 gulp.task('watchify', function () {
     var args = merge(watchify.args, { debug: true })
@@ -70,7 +92,7 @@ function bundle_js(bundler) {
         .on('error', map_error)
         .on('end', function() {
             gutil.log(chalk.green('done!'));
-            browserSync.reload();
+            server.reload();
         })
         .pipe(source('app.js'))
         .pipe(buffer())
