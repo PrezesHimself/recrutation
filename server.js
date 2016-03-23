@@ -2,16 +2,16 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(1337, "192.168.1.19" , function () {
+server.listen(1337, "192.168.0.11" , function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('running at http://' + host + ':' + port)
 });
 
 
-var titles = ['mr ', 'dr ', 'prof ', 'mrs ', 'mighty '];
-var vegetable = ['carrot', 'coliflower', 'potato'];
-var pseudo = ['head', 'eater', 'master'];
+var titles = ['mr ', 'dr ', 'prof ', 'mrs ', 'mighty', 'sir', 'lord', 'lady', 'count'];
+var vegetable = ['carrot', 'cauliflower', 'potato', 'aubergine', 'onion'];
+var pseudo = ['head', 'eater', 'master', 'fan', 'lover', 'analyst', 'eye', 'feet'];
 
 function shuffle(a) {
     var j, x, i;

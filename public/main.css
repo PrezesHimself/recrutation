@@ -68,13 +68,13 @@ a, a:hover, a:active {
 
 .mr-chatbox__message--mine {
   text-align: right;
-  background: #CDB58B;
+  background: #4393DC;
   margin: 0 0 10px 50px; }
 
 .mr-chatbox__message--mine:after {
   left: -8px;
   border-width: 5px 10px 5px 0;
-  border-color: transparent #CDB58B transparent transparent; }
+  border-color: transparent #4393DC transparent transparent; }
 
 .mr-inputbox {
   -webkit-flex: 0 0 60px;

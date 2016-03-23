@@ -75,12 +75,12 @@ a, a:hover, a:active {
     }
     &--mine {
       text-align: right;
-      background: $light-dark;
+      background: #4393DC;
       margin: 0 0 10px 50px;
       &:after {
         left: -8px;
         border-width: 5px 10px 5px 0;
-        border-color: transparent $light-dark transparent transparent;
+        border-color: transparent #4393DC transparent transparent;
       }
     }
   }

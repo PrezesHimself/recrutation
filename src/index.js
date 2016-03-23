@@ -29,7 +29,7 @@ angular.module('app', [
 
 .factory('mySocket', function (socketFactory) {
 
-    var myIoSocket = io('http://192.168.1.19:1337');
+    var myIoSocket = io('http://192.168.0.11:1337');
 
     var mySocket = socketFactory({
         ioSocket: myIoSocket
